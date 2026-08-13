@@ -42,10 +42,10 @@ class Assignment(subjects.Subject):
                 print("Please enter a valid number.")
         #due dates
         while True:
-            self.due_date = input("Enter due date (YYYY-MM-DD): ")
-
+            date_input = input("Enter due date (YYYY-MM-DD): ")
+            #ensure it does not discard the datetime val
             try:
-                datetime.strptime(self.due_date, "%Y-%m-%d")
+                self.due_date= datetime.strptime(date_input, "%Y-%m-%d")
                 break
             except ValueError:
                 print("Invalid date. Please use YYYY-MM-DD.")
