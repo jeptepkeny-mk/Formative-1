@@ -36,6 +36,10 @@ class Assignment(subjects.Subject):
                     print("Maximum score must be greater than 0.")
                     continue
 
+                if self.assign_score > self.max_score:
+                    print("Assignment score cannot exceed the maximum score.")
+                    continue
+
                 break
 
             except ValueError:
