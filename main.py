@@ -23,20 +23,21 @@ def list_assignment():
         print(exam)
 
 def grade_summary():
-    homework_sum, exam_sum=0
+    homework_sum=0
+    exam_sum = 0
 
     for homework in homework_list:
         score= round(homework.assign_score/homework.max_score ,2)
         homework_sum+=score
     avg_hw_score=homework_sum/len(homework_list)
-    print(f"Average homework score:{avg_hw_score}")
+    print(f"Average homework score:{avg_hw_score}/1")
 
 
     for exam in exam_list:
         score= round(exam.assign_score/exam.max_score ,2)
         exam_sum+=score
-    avg_ex_score = exam_sum / len(homework_list)
-    print(f"Average exam score:{avg_ex_score}")
+    avg_ex_score = exam_sum / len(exam_list)
+    print(f"Average exam score:{avg_ex_score}/1")
 
 
 #removing arguments from filter by month
@@ -61,8 +62,8 @@ def filter_by_month():
     for exam in exam_results:
         print(exam.title)
 
-def summary(homeworks, exams):
-    assignments = homeworks + exams
+def summary():
+    assignments = homework_list + exam_list
 
     total_assignments = len(assignments)
 
@@ -111,8 +112,8 @@ def summary(homeworks, exams):
 
     print("\n\n")
 
-def mark_assignment_as_completed(homeworks, exams):
-    assignments = homeworks + exams
+def mark_assignment_as_completed():
+    assignments = homework_list + exam_list
 
     for i, assignment in enumerate(assignments, start=1):
         status = "Completed" if assignment.completed else "Pending"
@@ -120,7 +121,7 @@ def mark_assignment_as_completed(homeworks, exams):
 
     decision = int(input("Choose an assignment: "))
 
-    assignments[decision - 1].mark_as_complete()
+    assignments[decision - 1].mark_as_completed()
 
 def exit_program():
     print("Goodbye!")
@@ -145,11 +146,13 @@ while program_is_on:
 
     choice=int(input("Enter your choice(answer should be in form of integer): "))
 
+    if choice == 0:
+        exit_program()
+        break
+
     if choice in menu_dict:
         menu_dict[choice][0]()
     else:
         print("Invalid input")
 
-    if choice == 0:
-        exit_program()
-        break
+
