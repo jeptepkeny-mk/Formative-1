@@ -169,8 +169,13 @@ menu_dict = {
 while program_is_on:
     for key, value in menu_dict.items():
         print(f"{key}: {value[1]}")
+    while True:
+        try:
+            choice=int(input("Enter your choice(answer should be in form of integer): "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
-    choice=int(input("Enter your choice(answer should be in form of integer): "))
 
     if choice == 0:
         exit_program()
