@@ -23,26 +23,42 @@ def list_assignment():
         print(exam)
 
 def grade_summary():
-    homework_sum=0
+    homework_sum = 0
     exam_sum = 0
 
     for homework in homework_list:
-        score= round(homework.assign_score/homework.max_score ,2)
-        homework_sum+=score
-    avg_hw_score=homework_sum/len(homework_list)
-    print(f"Average homework score:{avg_hw_score}/1")
+        score = round(homework.assign_score / homework.max_score, 2)
+        homework_sum += score
 
+    if len(homework_list) > 0:
+        avg_hw_score = round(homework_sum / len(homework_list), 2)
+        print(f"Average homework score: {avg_hw_score}/1.0")
+    else:
+        print("No homework assignments available.")
 
     for exam in exam_list:
-        score= round(exam.assign_score/exam.max_score ,2)
-        exam_sum+=score
-    avg_ex_score = exam_sum / len(exam_list)
-    print(f"Average exam score:{avg_ex_score}/1")
+        score = round(exam.assign_score / exam.max_score, 2)
+        exam_sum += score
 
+    if len(exam_list) > 0:
+        avg_ex_score = round(exam_sum / len(exam_list), 2)
+        print(f"Average exam score: {avg_ex_score}/1.0")
+    else:
+        print("No exams available.")
 
 #removing arguments from filter by month
 def filter_by_month():
-    month = int(input("Enter the month number (1-12): "))
+    while True:
+        try:
+            month = int(input("Enter the month number (1-12): "))
+
+            if 1 <= month <= 12:
+                break
+            else:
+                print("Invalid input. Please enter a month between 1 and 12.")
+
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
     homework_results = [
         homework for homework in homework_list
@@ -119,7 +135,17 @@ def mark_assignment_as_completed():
         status = "Completed" if assignment.completed else "Pending"
         print(f"{i}. {assignment.title} - {status}")
 
-    decision = int(input("Choose an assignment: "))
+    while True:
+        try:
+            decision = int(input("Choose an assignment: "))
+
+            if 1 <= decision <= len(assignments):
+                break
+            else:
+                print(f"Invalid input. Please choose a number between 1 and {len(assignments)}.")
+
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
     assignments[decision - 1].mark_as_completed()
 
